@@ -1,85 +1,70 @@
-/**
- * 
- * Manipulating the DOM exercise.
- * Exercise programmatically builds navigation,
- * scrolls to anchors from navigation,
- * and highlights section in viewport upon scrolling.
- * 
- * Dependencies: None
- * 
- * JS Version: ES2015/ES6
- * 
- * JS Standard: ESlint
- * 
-*/
+class PageScrolling {
+  sections = document.querySelectorAll("section");
+  links = document.querySelectorAll(".links");
+  navbarHeight = document.querySelector(".navbar__menu").offsetHeight;
+  sectionNumber;
+  setSectionsValue() {
+    document.getElementById("sec1").innerHTML = "SECTION1";
 
-/**
- * Comments should be present at the beginning of each procedure and class.
- * Great to have comments before crucial code sections within the procedure.
-*/
-var sec=document.querySelectorAll("section");
-var links=document.querySelectorAll(".links");
-var btn=document.getElementById("toggle");
+    document.getElementById("sec2").innerHTML = "SECTION2";
 
-/**
- * Define Global Variables
- * 
-*/
-document.getElementById("sec1").innerHTML="SECTION1";
-document.getElementById("sec2").innerHTML="SECTION2";
-document.getElementById("sec3").innerHTML="SECTION3";
-document.getElementById("sec4").innerHTML="SECTION4";
+    document.getElementById("sec3").innerHTML = "SECTION3";
 
-/**
- * End Global Variables
- * Start Helper Functions
- *
-*/
-function scrolling() {
-    var length=sec.length;
-    
-        while (--length && window.scrollY + 80 <sec[length].offsetTop) {}
-        links.forEach(activ => activ.classList.remove("active"));
-        links[length].classList.add("active");
-        sec.forEach(lay => lay.classList.remove("layer"));
-        sec[length].classList.add("layer");
-    
-    // console.log(window.scrollY)
+    document.getElementById("sec4").innerHTML = "SECTION4";
+  }
+  rmClassByNameFromNodelist(className, nodeList) {
+    nodeList.forEach((element) => element.classList.remove(`${className}`));
+  }
+  addClassByNameToElement(className, element) {
+    element.classList.add(`${className}`);
+  }
+  detectSectionNumber() {
+    this.sectionNumber = this.sections.length - 1;
+    while (
+      window.scrollY + this.navbarHeight <
+        this.sections[this.sectionNumber].offsetTop &&
+      this.sectionNumber
+    ) {
+      this.sectionNumber -= 1;
+    }
+    //     detectSectionNumber()
+    //     {
+    //   this.sectionNumber= 0 ;
+    //   while(this.sectionNumber<this.sections.length && window.scrollY + this.navbarHeight > this.sections[this.sectionNumber].offsetTop +this.sections[this.sectionNumber].offsetHeight){
+    //     this.sectionNumber+=1;
+    //         }
+    //     }
+  }
+  activeLink() {
+    this.rmClassByNameFromNodelist("active", this.links);
+    this.addClassByNameToElement("active", this.links[this.sectionNumber]);
+  }
+  layerChange() {
+    this.rmClassByNameFromNodelist("layer", this.sections);
+
+    this.addClassByNameToElement("layer", this.sections[this.sectionNumber]);
+  }
+  scroll = new SmoothScroll('.navbar__menu a[href*="#"]', {
+    speed: 1000,
+  });
+  
 }
-scrolling();
-window.addEventListener("scroll",scrolling);
 
-/**
- * End Helper Functions
- * Begin Main Functions
- * 
-*/
+let pageScrolling = new PageScrolling();
+pageScrolling.setSectionsValue();
 
-// btn.addEventListener("click",function(){
-//     if (){
-        
-//     }
-// })
+function scroll() {
+  pageScrolling.detectSectionNumber();
+  pageScrolling.activeLink();
+  pageScrolling.layerChange();
+}
 
-// build the nav
+scroll();
+window.addEventListener("scroll", scroll);
 
 
-// Add class 'active' to section when near top of viewport
-
-
-// Scroll to anchor ID using scrollTO event
-let scroll = new SmoothScroll('.navbar__menu a[href*="#"]',{
-    speed:1000
+btn = document.querySelector(".fa-bars");
+nav = document.querySelector("#navbar__list");
+this.btn.addEventListener("click", () => {
+  this.nav.classList.toggle("open");
 });
-
-/**
- * End Main Functions
- * Begin Events
- * 
-*/
-
-// Build menu 
-
-// Scroll to section on link click
-
-// Set sections as active

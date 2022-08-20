@@ -14,16 +14,17 @@
   <!-- HTML Follows BEM naming conventions 
   IDs are only used for sections to connect menu achors to sections -->
   <header class="page__header">
+    <div class="navToggle">
+      <i class="fas fa-bars fa-3"></i>
+    </div>
     <nav class="navbar__menu">
       <!-- Navigation starts as empty UL that will be populated with JS -->
-      <ul id="navbar__list">
+      <ul id="navbar__list"  class="">
           <li class="links"><a id="sec1" href="#section1"></a></li>
           <li class="links"><a id="sec2" href="#section2"></a></li>
           <li class="links"><a id="sec3" href="#section3"></a></li>
           <li class="links"><a id="sec4" href="#section4"></a></li>
-          
-          <span id="toggle"><i class="fas fa-bars"></i></span>
-        </ul>
+      </ul>
     </nav>
   </header>
   <main>
